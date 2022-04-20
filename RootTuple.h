@@ -12,6 +12,8 @@
 class RootTuple {
 private:
 	TFile* fFile;
+	TString fInputFile;
+	TString fOutputFile;	
 
 public :
    TTree          *fChain;   //!pointer to the analyzed TTree or TChain
@@ -61,7 +63,7 @@ public :
    TBranch        *b_nuc_Py;   //!
    TBranch        *b_nuc_Pz;   //!
 
-   RootTuple(TTree *tree=0);
+   RootTuple(TString input, TString output, TTree *tree=0);
    virtual ~RootTuple();
    virtual Int_t    Cut(Long64_t entry);
    virtual Int_t    GetEntry(Long64_t entry);
@@ -75,14 +77,18 @@ public :
 #endif
 
 #ifdef RootTuple_cxx
-RootTuple::RootTuple(TTree *tree) : fChain(0) 
+RootTuple::RootTuple(TString input, TString output, TTree *tree) : fChain(0) 
 {
+
+	fInputFile = input;
+	fOutputFile = output;	
+
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("mySamples/EventOutput.Pert.merged.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("mySamples/"+input+".root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("mySamples/EventOutput.Pert.merged.root");
+         f = new TFile("mySamples/"+input+".root");
       }
       f->GetObject("RootTuple",tree);
 
