@@ -56,6 +56,7 @@ void RootTuple::Loop() {
 
 	TH1D* TrueDeltaPTPlot[NInte];
 	TH1D* TrueDeltaAlphaTPlot[NInte];
+	TH1D* TrueDeltaAlpha3DPlot[NInte];	
 	TH1D* TrueDeltaPhiTPlot[NInte];
 	TH1D* TrueDeltaPLPlot[NInte];
 	TH1D* TrueDeltaPnPlot[NInte];
@@ -166,6 +167,7 @@ void RootTuple::Loop() {
 
 		TrueDeltaPTPlot[inte] = new TH1D(InteractionLabels[inte]+"TrueDeltaPTPlot",LabelXAxisDeltaPT,NBinsDeltaPT,ArrayNBinsDeltaPT);
 		TrueDeltaAlphaTPlot[inte] = new TH1D(InteractionLabels[inte]+"TrueDeltaAlphaTPlot",LabelXAxisDeltaAlphaT,NBinsDeltaAlphaT,ArrayNBinsDeltaAlphaT);
+		TrueDeltaAlpha3DPlot[inte] = new TH1D(InteractionLabels[inte]+"TrueDeltaAlpha3DPlot",LabelXAxisDeltaAlpha3D,NBinsDeltaAlpha3D,ArrayNBinsDeltaAlpha3D);	
 		TrueDeltaPhiTPlot[inte] = new TH1D(InteractionLabels[inte]+"TrueDeltaPhiTPlot",LabelXAxisDeltaPhiT,NBinsDeltaPhiT,ArrayNBinsDeltaPhiT);
 		TrueDeltaPLPlot[inte] = new TH1D(InteractionLabels[inte]+"TrueDeltaPLPlot",LabelXAxisDeltaPL,NBinsDeltaPL,ArrayNBinsDeltaPL);
 		TrueDeltaPnPlot[inte] = new TH1D(InteractionLabels[inte]+"TrueDeltaPnPlot",LabelXAxisDeltaPn,NBinsDeltaPn,ArrayNBinsDeltaPn);
@@ -477,6 +479,7 @@ void RootTuple::Loop() {
 
 		double PTmissMomentum = stv_tool.ReturnPt();
 		double TrueDeltaAlphaT = stv_tool.ReturnDeltaAlphaT();
+		double TrueDeltaAlpha3D = stv_tool.ReturnDeltaAlpha3D();		
 		double TrueDeltaPhiT = stv_tool.ReturnDeltaPhiT();
 		double ECal = stv_tool.ReturnECal();
 		double EQE = stv_tool.ReturnEQE();
@@ -640,6 +643,7 @@ void RootTuple::Loop() {
 
 				TrueDeltaPTPlot[0]->Fill(PTmissMomentum,Weight);
 				TrueDeltaAlphaTPlot[0]->Fill(TrueDeltaAlphaT,Weight);
+				TrueDeltaAlpha3DPlot[0]->Fill(TrueDeltaAlpha3D,Weight);				
 				TrueDeltaPhiTPlot[0]->Fill(TrueDeltaPhiT,Weight);
 				TrueECalPlot[0]->Fill(ECal,Weight);
 				TrueEQEPlot[0]->Fill(EQE,Weight);
@@ -666,6 +670,7 @@ void RootTuple::Loop() {
 
 				TrueDeltaPTPlot[genie_mode]->Fill(PTmissMomentum,Weight);
 				TrueDeltaAlphaTPlot[genie_mode]->Fill(TrueDeltaAlphaT,Weight);
+				TrueDeltaAlpha3DPlot[genie_mode]->Fill(TrueDeltaAlpha3D,Weight);				
 				TrueDeltaPhiTPlot[genie_mode]->Fill(TrueDeltaPhiT,Weight);
 				TrueECalPlot[genie_mode]->Fill(ECal,Weight);
 				TrueEQEPlot[genie_mode]->Fill(EQE,Weight);
@@ -911,6 +916,7 @@ void RootTuple::Loop() {
 		tools.Reweight(TrueCCQEQ2Plot[inte],ScalingFactor);	
 		tools.Reweight(TrueDeltaPTPlot[inte],ScalingFactor);
 		tools.Reweight(TrueDeltaAlphaTPlot[inte],ScalingFactor);
+		tools.Reweight(TrueDeltaAlpha3DPlot[inte],ScalingFactor);		
 		tools.Reweight(TrueDeltaPhiTPlot[inte],ScalingFactor);
 		tools.Reweight(TrueDeltaPLPlot[inte],ScalingFactor);
 		tools.Reweight(TrueDeltaPnPlot[inte],ScalingFactor);
